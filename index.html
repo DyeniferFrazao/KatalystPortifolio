@@ -1,0 +1,327 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Katalyst — Galeria de projetos</title>
+<meta name="description" content="Katalyst: Dyênifer Frazão e Luis Fernando Rigo. Uma galeria de sites completos para explorar livremente.">
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=IBM+Plex+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@500;600&display=swap" rel="stylesheet">
+
+<style>
+  :root{
+    --iron:        #191C1A;
+    --iron-soft:   #232724;
+    --paper:       #EDEEE8;
+    --panel:       #F7F7F3;
+    --ink:         #1B1D19;
+    --muted:       #6B6D63;
+    --line:        #D2D3C8;
+    --copper:      #A85C2A;
+    --copper-bright: #C97A3E;
+    --verdigris:   #4F7A6C;
+  }
+  *{box-sizing:border-box;}
+  html{scroll-behavior:smooth;}
+  body{
+    margin:0;
+    background:var(--paper);
+    color:var(--ink);
+    font-family:'IBM Plex Sans', sans-serif;
+    line-height:1.6;
+    font-size:16px;
+  }
+  h1,h2,h3{
+    font-family:'Instrument Serif', serif;
+    font-weight:400;
+    margin:0;
+  }
+  a{color:inherit;}
+  .wrap{max-width:1080px;margin:0 auto;padding:0 28px;}
+
+  /* ---------- HEADER ---------- */
+  .top{
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    padding:26px 28px;
+    max-width:1080px;
+    margin:0 auto;
+  }
+  .wordmark{font-family:'Instrument Serif', serif;font-size:22px;}
+  .top nav{display:flex;gap:26px;font-size:14px;}
+  .top nav a{text-decoration:none;color:var(--muted);border-bottom:1px solid transparent;}
+  .top nav a:hover{color:var(--ink);border-bottom-color:var(--copper);}
+
+  /* ---------- HERO ---------- */
+  .hero{background:var(--iron);color:var(--paper);padding:64px 28px 84px;}
+  .hero-inner{max-width:1080px;margin:0 auto;}
+  .signature{
+    font-family:'IBM Plex Mono', monospace;
+    font-size:12.5px;
+    color:#9FA69E;
+    margin-bottom:26px;
+  }
+  .signature strong{color:var(--copper-bright);font-weight:600;}
+  .hero h1{
+    font-size:clamp(34px,5vw,54px);
+    line-height:1.1;
+    max-width:17ch;
+    color:var(--paper);
+  }
+  .hero p{font-size:17.5px;color:#D7D9D0;max-width:56ch;margin-top:22px;}
+  .hero-cta{margin-top:34px;display:flex;gap:14px;flex-wrap:wrap;}
+  .btn{
+    display:inline-block;padding:12px 22px;font-size:14.5px;
+    font-family:'IBM Plex Sans', sans-serif;font-weight:500;
+    text-decoration:none;border-radius:2px;border:1px solid transparent;
+  }
+  .btn-primary{background:var(--copper);color:var(--paper);}
+  .btn-primary:hover{background:var(--copper-bright);}
+  .btn-ghost{border-color:#4A4E48;color:var(--paper);}
+  .btn-ghost:hover{border-color:var(--copper-bright);}
+
+  /* ---------- SECTION ---------- */
+  .section{padding:70px 0 10px;}
+  .section h2{font-size:30px;margin-bottom:14px;}
+  .section > p.lede{color:var(--muted);max-width:64ch;margin-bottom:40px;font-size:15.5px;}
+
+  /* ---------- GALLERY ---------- */
+  .gallery{
+    display:grid;
+    grid-template-columns:repeat(3,1fr);
+    gap:20px;
+  }
+  @media(max-width:860px){.gallery{grid-template-columns:1fr 1fr;}}
+  @media(max-width:560px){.gallery{grid-template-columns:1fr;}}
+
+  .project-card{
+    background:var(--panel);
+    border:1px solid var(--line);
+    padding:22px 22px 24px;
+    display:flex;
+    flex-direction:column;
+    position:relative;
+  }
+  .project-card::before,.project-card::after{
+    content:"";position:absolute;width:9px;height:9px;
+    border-top:1px solid var(--copper);border-left:1px solid var(--copper);
+  }
+  .project-card::before{top:-1px;left:-1px;}
+  .project-card::after{bottom:-1px;right:-1px;border-top:none;border-left:none;border-bottom:1px solid var(--copper);border-right:1px solid var(--copper);}
+  .project-card.is-pending::before,.project-card.is-pending::after{border-color:var(--line);}
+
+  .stack{
+    position:relative;
+    width:60px;height:46px;
+    margin-bottom:20px;
+  }
+  .stack span{
+    position:absolute;
+    left:0;top:0;
+    width:44px;height:34px;
+    background:var(--paper);
+    border:1px solid var(--line);
+  }
+  .stack span:nth-child(1){transform:translate(0,10px);}
+  .stack span:nth-child(2){transform:translate(7px,5px);}
+  .stack span:nth-child(3){transform:translate(14px,0);border-color:var(--copper);}
+  .is-pending .stack span:nth-child(3){border-color:var(--line);}
+
+  .project-card h3{font-size:20px;margin-bottom:8px;}
+  .project-card p{color:var(--muted);font-size:14px;margin:0 0 14px;flex:1;}
+  .project-tags{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:16px;}
+  .tag{
+    font-family:'IBM Plex Mono', monospace;
+    font-size:11px;color:var(--muted);
+    border:1px solid var(--line);padding:2px 8px;border-radius:2px;
+  }
+  .project-link{
+    font-size:13.5px;font-weight:500;color:var(--copper);
+    text-decoration:none;border-bottom:1px solid var(--copper);align-self:flex-start;
+  }
+  .project-link.disabled{color:var(--muted);border-bottom-color:var(--line);cursor:default;}
+
+  /* ---------- HOW IT WORKS ---------- */
+  .how{
+    border-top:1px solid var(--line);
+    margin-top:56px;
+    padding-top:44px;
+    display:grid;
+    grid-template-columns:1fr 1fr 1fr;
+    gap:28px;
+  }
+  @media(max-width:760px){.how{grid-template-columns:1fr;}}
+  .how-step .n{
+    font-family:'IBM Plex Mono', monospace;
+    font-size:12px;color:var(--copper);margin-bottom:8px;
+  }
+  .how-step h3{font-size:17px;margin-bottom:6px;font-family:'IBM Plex Sans',sans-serif;font-weight:600;}
+  .how-step p{color:var(--muted);font-size:14px;margin:0;}
+
+  /* ---------- ABOUT ---------- */
+  .founders{display:grid;grid-template-columns:1fr 1fr;gap:24px;margin-top:8px;}
+  @media(max-width:640px){.founders{grid-template-columns:1fr;}}
+  .founder{border:1px solid var(--line);background:var(--panel);padding:22px 24px;position:relative;}
+  .founder::before,.founder::after{
+    content:"";position:absolute;width:9px;height:9px;
+    border-top:1px solid var(--copper);border-left:1px solid var(--copper);
+  }
+  .founder::before{top:-1px;left:-1px;}
+  .founder::after{bottom:-1px;right:-1px;border-top:none;border-left:none;border-bottom:1px solid var(--copper);border-right:1px solid var(--copper);}
+  .founder h3{font-size:19px;margin-bottom:4px;}
+  .founder .role{font-family:'IBM Plex Mono', monospace;font-size:12px;color:var(--copper);margin-bottom:10px;display:block;}
+  .founder p{color:var(--muted);font-size:14px;margin:0;}
+
+  /* ---------- CTA / FOOTER ---------- */
+  .cta-block{margin-top:80px;background:var(--iron);color:var(--paper);padding:46px 28px;}
+  .cta-block .wrap{display:flex;justify-content:space-between;align-items:center;gap:24px;flex-wrap:wrap;}
+  .cta-block h2{color:var(--paper);font-size:26px;}
+  .cta-block p{color:#C9CCC2;margin-top:8px;max-width:44ch;font-size:14.5px;}
+  footer{
+    padding:26px 28px 50px;font-size:13px;color:var(--muted);
+    display:flex;justify-content:space-between;flex-wrap:wrap;gap:10px;
+  }
+</style>
+</head>
+<body>
+
+  <div class="top">
+    <div class="wordmark">Katalyst</div>
+    <nav>
+      <a href="#galeria">Galeria</a>
+      <a href="#sobre">Sobre</a>
+      <a href="#contato">Contato</a>
+    </nav>
+  </div>
+
+  <div class="hero">
+    <div class="hero-inner">
+      <div class="signature">Katalyst — <strong>Dyênifer Frazão</strong> &amp; <strong>Luis Fernando Rigo</strong></div>
+      <h1>Uma galeria para explorar, não uma lista pra escolher por rótulo.</h1>
+      <p>Cada projeto abaixo é um site completo, com várias páginas navegáveis — não um recorte fechado por
+      tipo de negócio. Percorra livremente e veja até onde o desenvolvimento pode ir.</p>
+      <div class="hero-cta">
+        <a class="btn btn-primary" href="#galeria">Explorar a galeria</a>
+        <a class="btn btn-ghost" href="#contato">Falar com a gente</a>
+      </div>
+    </div>
+  </div>
+
+  <div class="wrap">
+
+    <div class="section" id="galeria">
+      <h2>Galeria de projetos</h2>
+      <p class="lede">Não organizamos os projetos por segmento de negócio. Cada um é navegável de ponta a
+      ponta — abra, clique entre as páginas internas e imagine as possibilidades pro seu caso.</p>
+
+      <div class="gallery">
+
+        <div class="project-card">
+          <div class="stack"><span></span><span></span><span></span></div>
+          <h3>Modelo A</h3>
+          <p>Layout escuro. Multiplas páginas conectadas: início, Conteúdo oferecido, Planos e contato.</p>
+          <div class="project-tags"><span class="tag">4 páginas</span><span class="tag">layout escuro</span></div>
+          <a class="project-link" href="projects/modelo-a/index.html">Explorar projeto →</a>
+        </div>
+
+        <div class="project-card">
+          <div class="stack"><span></span><span></span><span></span></div>
+          <h3>Modelo B</h3>
+          <p>Layout escuro e compacto, tudo em uma visualização, com blocos de conteúdo em destaque. Uma página conectada.</p>
+          <div class="project-tags"><span class="tag">1 página</span><span class="tag">layout escuro</span></div>
+          <a class="project-link" href="projects/modelo-b/index.html">Explorar projeto →</a>
+        </div>
+
+        <div class="project-card is-pending">
+          <div class="stack"><span></span><span></span><span></span></div>
+          <h3>Modelo C</h3>
+          <p>Reservado para um projeto em andamento — sistema de checkout.</p>
+          <div class="project-tags"><span class="tag">em preparo</span></div>
+          <span class="project-link disabled">Conectar</span>
+        </div>
+
+        <div class="project-card is-pending">
+          <div class="stack"><span></span><span></span><span></span></div>
+          <h3>Modelo D</h3>
+          <p>Reservado para um projeto em andamento — sistema de login.</p>
+          <div class="project-tags"><span class="tag">em preparo</span></div>
+          <span class="project-link disabled">Conectar</span>
+        </div>
+
+        <div class="project-card is-pending">
+          <div class="stack"><span></span><span></span><span></span></div>
+          <h3>Modelo E</h3>
+          <p>Reservado para um projeto em andamento — landing page.</p>
+          <div class="project-tags"><span class="tag">em preparo</span></div>
+          <span class="project-link disabled">Conectar</span>
+        </div>
+
+        <div class="project-card is-pending">
+          <div class="stack"><span></span><span></span><span></span></div>
+          <h3>Modelo F</h3>
+          <p>Reservado para um projeto em andamento — CRM.</p>
+          <div class="project-tags"><span class="tag">em preparo</span></div>
+          <span class="project-link disabled">Conectar</span>
+        </div>
+
+      </div>
+
+      <div class="how">
+        <div class="how-step">
+          <div class="n">01</div>
+          <h3>Escolha um projeto</h3>
+          <p>Cada card abre um site independente, com sua própria navegação entre páginas.</p>
+        </div>
+        <div class="how-step">
+          <div class="n">02</div>
+          <h3>Navegue livremente</h3>
+          <p>Clique entre as páginas internas do projeto como faria em qualquer site publicado.</p>
+        </div>
+        <div class="how-step">
+          <div class="n">03</div>
+          <h3>Volte e compare</h3>
+          <p>Use o link no topo de cada projeto para retornar à galeria e abrir outro modelo.</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="section" id="sobre">
+      <h2>Sobre a Katalyst</h2>
+      <p class="lede">Um grupo pequeno, de duas pessoas, cuidando de cada projeto do começo ao suporte.</p>
+      <div class="founders">
+        <div class="founder">
+          <h3>Dyênifer Frazão</h3>
+          <span class="role">desenvolvimento &amp; design</span>
+          <p>Cuida da estrutura de cada site e da identidade visual de cada projeto.</p>
+        </div>
+        <div class="founder">
+          <h3>Luis Fernando Rigo</h3>
+          <span class="role">desenvolvimento &amp; automações</span>
+          <p>Responsável pelos agentes de IA, integrações e pela parte técnica que mantém tudo no ar.</p>
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+  <div class="cta-block" id="contato">
+    <div class="wrap">
+      <div>
+        <h2>Encontrou um ponto de partida?</h2>
+        <p>Conversamos sobre como adaptar qualquer um dos projetos da galeria ao seu negócio.</p>
+      </div>
+      <a class="btn btn-primary" href="mailto:dyeniferfrazao@gmail.com">mail@katalyst.dev</a>
+      <a class="btn btn-primary" href="https://wa.me/5554991158914">whatsapp@katalyst.dev</a>
+    </div>
+  </div>
+
+  <footer>
+    <span>Katalyst — Dyênifer Frazão &amp; Luis Fernando Rigo</span>
+    <span>© 2026</span>
+  </footer>
+
+</body>
+</html>
