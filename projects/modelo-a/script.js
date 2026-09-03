@@ -1,4 +1,4 @@
-// PROTEIN BOX CENTRO — comportamento compartilhado entre páginas
+// PULSE BOX TRAINING — comportamento compartilhado entre páginas
 
 // Header shadow on scroll
 const header = document.getElementById('site-header');
